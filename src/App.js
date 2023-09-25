@@ -9,8 +9,16 @@ function App() {
             <p>самая вкусная пицца во вселенной</p>
           </div>
         </div>
-        <div className="cart"></div>
+        <div className="cart">
+          <p className="price">520 руб.</p>
+          <img width={1} height={25} src="./img/cart-line.svg" alt="cart-line" />
+          <div className="cart-block">
+            <img src="./img/cart.svg" alt="cart" />
+            <p>3</p>
+          </div>
+        </div>
       </div>
+      <div className="header-line"></div>
     </div>
   );
 }
