@@ -141,72 +141,76 @@ body {
       }
     }
   }
+}
 
-  .sort {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-    img {
-      margin-right: 7px;
-    }
+.sort {
+  position: absolute;
+  top: 191px;
+  right: 103px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    p {
-      margin-right: 8px;
-
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 17px;
-      letter-spacing: 0.015em;
-      text-align: left;
-    }
-
-    span {
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 17px;
-      letter-spacing: 0.015em;
-      text-align: left;
-      color: rgba(254, 95, 30, 1);
-      border-bottom: 1px dashed rgba(254, 95, 30, 1);
-    }
+  img {
+    margin-right: 7px;
   }
 
-  .popup {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    width: 132px;
-    height: 130px;
-    top: 40px;
-    right: 2px;
-    border-radius: 10px;
-    padding-top: 13px;
+  p {
+    margin-right: 8px;
 
-    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.09);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0.015em;
+    text-align: left;
+  }
 
-    p {
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 17px;
-      letter-spacing: 0.015em;
-      text-align: left;
-      padding: 10px 22px 11px 14px;
-      
-      &:hover {
-        background-color: darken(#f9f9f9, 2%);
-      }
-      
-      &:active {
-        background-color: darken(#f9f9f9, 5%);
-      }
+  span {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.015em;
+    text-align: left;
+    color: rgba(254, 95, 30, 1);
+    border-bottom: 1px dashed rgba(254, 95, 30, 1);
+  }
+}
 
-      &.active {
-        color: rgba(254, 95, 30, 1);
-        background-color: rgba(254, 95, 30, 0.05);
-      }
+.popup {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 132px;
+  height: 130px;
+  top: 218px;
+  right: 50px;
+  border-radius: 10px;
+  padding-top: 13px;
+
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.09);
+
+  p {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0.015em;
+    text-align: left;
+    padding: 10px 22px 11px 14px;
+    
+    &:hover {
+      background-color: darken(#f9f9f9, 2%);
+    }
+    
+    &:active {
+      background-color: darken(#f9f9f9, 5%);
+    }
+
+    &.active {
+      color: rgba(254, 95, 30, 1);
+      background-color: rgba(254, 95, 30, 0.05);
     }
   }
 }

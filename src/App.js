@@ -1,12 +1,14 @@
 import Header from './components/Header';
 import Categories from './components/Categories';
 import PizzaBlock from './components/PizzaBlock';
+import Sort from './components/Sort';
 
 function App() {
   return (
     <div className="wrapper">
       <Header />
       <Categories />
+      <Sort />
       <h1>Все пиццы</h1>
       <div className="pizza-list">
         <PizzaBlock title={'Чизбургер-пицца'} price={395} imageUrl={'./img/pizza.png'} />
