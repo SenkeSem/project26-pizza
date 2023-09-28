@@ -1,6 +1,12 @@
 import React from 'react';
 
 function PizzaBlock({ title, price, imageUrl }) {
+  const [counterPizza, setCounterPizza] = React.useState(0);
+
+  const addPizza = () => {
+    setCounterPizza(counterPizza + 1);
+  };
+
   return (
     <div className="pizza-block">
       <img width={260} height={260} src={imageUrl} alt="pizza" />
@@ -18,11 +24,11 @@ function PizzaBlock({ title, price, imageUrl }) {
       </div>
       <div className="button">
         <h4>от {price} ₽</h4>
-        <div className="add-button">
+        <div onClick={addPizza} className="add-button">
           <img src="./img/plus.svg" alt="plus" />
           <p>Добавить</p>
           <div className="orange-circle">
-            <span>2</span>
+            <span>{counterPizza}</span>
           </div>
         </div>
       </div>
