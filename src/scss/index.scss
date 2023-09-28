@@ -323,11 +323,6 @@ body {
       margin-bottom: 0;
     }
 
-    .add-button img[alt="number"] {
-      margin-right: 14px;
-      margin-bottom: 0;
-    }
-
     .add-button {
       cursor: pointer;
       width: 155px;
@@ -338,8 +333,19 @@ body {
       border-radius: 30px;
       border: 1px solid rgba(235, 90, 30, 1);
 
+      &:hover {
+        background-color: darken(#f9f9f9, 5%);
+      }
+
+      &:active {
+        background-color:rgba(235, 90, 30, 1);
+
+        p {
+          color:#FFF;
+        }
+      }
+
       p {
-        margin-left: 8px;
         font-size: 16px;
         font-weight: 700;
         line-height: 19px;
@@ -348,7 +354,25 @@ body {
         color: rgba(235, 90, 30, 1);
       }
 
+      .orange-circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background-color: rgba(235, 90, 30, 1);
+        margin-right: 14px;
+        border-radius: 50%;
 
+        span {
+          color: #FFF;
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 16px;
+          letter-spacing: 0em;
+          text-align: left;
+        }
+      }
     }
   }
 }
