@@ -10,10 +10,12 @@ function App() {
       <Header />
       <Categories />
       <Sort />
+
       <h1>Все пиццы</h1>
+
       <div className="pizza-list">
         {pizzas.map((obj) => (
-          <PizzaBlock {...obj} />
+          <PizzaBlock key={obj.id} {...obj} />
         ))}
       </div>
     </div>
