@@ -1,10 +1,13 @@
+import React from 'react';
+
 import Header from './components/Header';
 import Categories from './components/Categories';
 import PizzaBlock from './components/PizzaBlock';
 import Sort from './components/Sort';
-import React from 'react';
+import Skeleton from './components/Skeleton';
 
 function App() {
+  const [isLoading, setIsLoading] = React.useState(true);
   const [pizzas, setPizzas] = React.useState([]);
 
   React.useEffect(() => {
@@ -14,6 +17,7 @@ function App() {
       })
       .then((items) => {
         setPizzas(items);
+        setIsLoading(false);
       });
   }, []);
 
@@ -26,9 +30,9 @@ function App() {
       <h1>Все пиццы</h1>
 
       <div className="pizza-list">
-        {pizzas.map((obj) => (
-          <PizzaBlock key={obj.id} {...obj} />
-        ))}
+        {isLoading
+          ? [...new Array(8)].map(() => <Skeleton />)
+          : pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
     </div>
   );
