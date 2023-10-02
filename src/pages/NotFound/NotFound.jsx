@@ -7,7 +7,9 @@ function NotFound() {
   return (
     <div className="wrapper">
       <Header />
-      <img className={style.blackVlastelin} src="img/NotFound.jpg" alt="NotFoundImg" />
+      <div className={style.container}>
+        <img src="img/NotFound.jpg" alt="NotFoundImg" />
+      </div>
     </div>
   );
 }
