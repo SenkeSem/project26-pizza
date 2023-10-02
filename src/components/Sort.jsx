@@ -21,16 +21,18 @@ function Sort() {
         <img width={10} height={6} src="img/triangle.svg" alt="triangle" />
         <p>Сортировка по:</p>
         <span onClick={onVisiblePopup}>{sortList[activeSort]}</span>
+        {isVisible && (
+          <div className="popup">
+            {sortList.map((item, index) => (
+              <p
+                onClick={() => onClickPopup(index)}
+                className={index === activeSort ? 'active' : ''}>
+                {item}
+              </p>
+            ))}
+          </div>
+        )}
       </div>
-      {isVisible && (
-        <div className="popup">
-          {sortList.map((item, index) => (
-            <p onClick={() => onClickPopup(index)} className={index === activeSort ? 'active' : ''}>
-              {item}
-            </p>
-          ))}
-        </div>
-      )}
     </>
   );
 }
