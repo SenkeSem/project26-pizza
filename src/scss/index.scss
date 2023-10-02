@@ -6,42 +6,33 @@
 
 body {
   background-color: rgba(255, 223, 140, 1);
-  padding-top: 40px;
 }
 
 .wrapper {
   position: relative;
-  margin: 0 auto;
+  margin: 40px auto;
   background-color: rgba(255, 255, 255, 1);
   max-width: 1400px;
-  height: 2000px;
   border-radius: 10px;
 
   h1 {
-    position: absolute;
-    top: 256px;
-    left: 67px;
+    margin: 32px 0 0 67px;
   }
 
   .header-line {
-    position: absolute;
-    width: 1328px;
+    width: 100%;
     height: 1px;
-    top: 137px;
-    left: 12px;
     background-color: rgba(246, 246, 246, 1);
+    margin-top: 40px;
   }
 }
 
 .header {
-  position: absolute;
-  top: 49px;
-  left: 77px;
   display: flex;
-  height: 50px;
-  width: 1225px;
   align-items: center;
   justify-content: space-between;
+  margin: 0px 38px 0 77px;
+  padding-top: 49px;
 
   .logo {
     display: flex;
@@ -101,15 +92,11 @@ body {
 .categories {
   display: flex;
   justify-content: space-between;
-  position: absolute;
-  width: 1225px;
-  height: 46px;
-  top: 178px;
-  left: 67px;
 
   ul {
     list-style-type: none;
     display: flex;
+    flex-wrap: wrap;
 
     li {
       background-color: rgba(249, 249, 249, 1);
@@ -145,12 +132,8 @@ body {
 
 
 .sort {
-  position: absolute;
-  top: 191px;
-  right: 103px;
   display: flex;
   align-items: center;
-  justify-content: center;
 
   img {
     margin-right: 7px;
@@ -181,11 +164,8 @@ body {
 .popup {
   display: flex;
   flex-direction: column;
-  position: absolute;
   width: 132px;
   height: 130px;
-  top: 218px;
-  right: 50px;
   border-radius: 10px;
   padding-top: 13px;
 
@@ -216,12 +196,12 @@ body {
 }
 
 .pizza-list {
-  display: flex;
-  flex-wrap: wrap;
-  position: absolute;
-  top: 330px;
-  left: 67px;
-  width: 1270px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 35px;
+    margin: 35px 48px 0 67px;
 }
 
 .pizza-block {
@@ -230,8 +210,6 @@ body {
   align-items: center;
   width: 280px;
   height: 459px;
-  margin-right: 35px;
-  margin-bottom: 65px;
 
   img {
     margin-bottom: 11px;
@@ -379,4 +357,12 @@ body {
       }
     }
   }
+}
+
+.categories-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding: 0 48px 0 67px;
 }
