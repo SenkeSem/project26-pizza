@@ -24,8 +24,10 @@ function Home() {
   return (
     <div className="wrapper">
       <Header />
-      <Categories />
-      <Sort />
+      <div className="categories-container">
+        <Categories />
+        <Sort />
+      </div>
 
       <h1>Все пиццы</h1>
 
