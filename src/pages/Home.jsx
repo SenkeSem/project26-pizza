@@ -22,7 +22,7 @@ function Home() {
     fetch(
       `https://65166a9f09e3260018c9bd8a.mockapi.io/items?${
         categoryId > 0 ? `category=${categoryId}` : ''
-      }`,
+      }&sortBy=${sortType.sortProperty}`,
     )
       .then((res) => {
         return res.json();
