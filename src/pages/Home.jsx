@@ -37,7 +37,7 @@ function Home() {
     <div className="wrapper">
       <Header />
       <div className="categories-container">
-        <Categories />
+        <Categories value={categoryId} onChangeCategory={(i) => setCategoryId(i)} />
         <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
 
