@@ -10,8 +10,20 @@ function Home() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [pizzas, setPizzas] = React.useState([]);
 
+  const [categoryId, setCategoryId] = React.useState(0);
+  const [sortType, setSortType] = React.useState({
+    name: 'популярности',
+    sortProperty: 'rating',
+  });
+
   React.useEffect(() => {
-    fetch('https://65166a9f09e3260018c9bd8a.mockapi.io/items')
+    setIsLoading(true);
+
+    fetch(
+      `https://65166a9f09e3260018c9bd8a.mockapi.io/items?${
+        categoryId > 0 ? `category=${categoryId}` : ''
+      }`,
+    )
       .then((res) => {
         return res.json();
       })
@@ -19,14 +31,14 @@ function Home() {
         setPizzas(items);
         setIsLoading(false);
       });
-  }, []);
+  }, [categoryId, sortType]);
 
   return (
     <div className="wrapper">
       <Header />
       <div className="categories-container">
         <Categories />
-        <Sort />
+        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
 
       <h1>Все пиццы</h1>
