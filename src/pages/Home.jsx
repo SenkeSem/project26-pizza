@@ -1,12 +1,11 @@
 import React from 'react';
 
-import Header from '../components/Header';
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
 import Sort from '../components/Sort';
 import Skeleton from '../components/Skeleton';
 
-function Home() {
+function Home({ searchValue, setSearchValue }) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [pizzas, setPizzas] = React.useState([]);
 
@@ -31,11 +30,13 @@ function Home() {
         setPizzas(items);
         setIsLoading(false);
       });
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
+
+  //Фейковый массив скелетонов, для отображения при загрузке страницы.
+  const fakePizza = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <div className="wrapper">
-      <Header />
       <div className="categories-container">
         <Categories value={categoryId} onChangeCategory={(i) => setCategoryId(i)} />
         <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
@@ -45,8 +46,15 @@ function Home() {
 
       <div className="pizza-list">
         {isLoading
-          ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
-          : pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
+          ? fakePizza
+          : pizzas
+              .filter((obj) => {
+                if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+                  return true;
+                }
+                return false;
+              })
+              .map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
-    color: rgba(123, 123, 123, 1);
+    color: black;
   }
 
   img[alt = "search"] {
@@ -28,6 +28,7 @@
   }
 
   img[alt = "remove"] {
+    cursor: pointer;
     position: absolute;
     z-index: 2;
     top: 10px;
