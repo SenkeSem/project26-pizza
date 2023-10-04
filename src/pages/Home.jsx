@@ -4,10 +4,12 @@ import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
 import Sort from '../components/Sort';
 import Skeleton from '../components/Skeleton';
+import Pagination from '../components/Pagination';
 
 function Home({ searchValue, setSearchValue }) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [pizzas, setPizzas] = React.useState([]);
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const [categoryId, setCategoryId] = React.useState(0);
   const [sortType, setSortType] = React.useState({
@@ -19,9 +21,9 @@ function Home({ searchValue, setSearchValue }) {
     setIsLoading(true);
 
     fetch(
-      `https://65166a9f09e3260018c9bd8a.mockapi.io/items?${
+      `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${currentPage}&limit=4${
         categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}`,
+      }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
     )
       .then((res) => {
         return res.json();
@@ -30,10 +32,10 @@ function Home({ searchValue, setSearchValue }) {
         setPizzas(items);
         setIsLoading(false);
       });
-  }, [categoryId, sortType, searchValue]);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   //Фейковый массив скелетонов, для отображения при загрузке страницы.
-  const fakePizza = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
+  const fakePizza = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <div className="wrapper">
@@ -56,6 +58,7 @@ function Home({ searchValue, setSearchValue }) {
               })
               .map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </div>
   );
 }
