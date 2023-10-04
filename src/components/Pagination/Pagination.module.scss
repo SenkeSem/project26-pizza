@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+  height: 30px;
+  margin: 60px auto;
+  padding-bottom: 20px;
+
+  :global {
+    list-style-type: none;
+
+    .selected {
+      background-color: rgba(254, 95, 30, 1);
+      color: #fff;
+      border-radius: 50%;
+    }
+
+    a {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      border-radius: 50%;
+      border: 1px solid rgba(254, 95, 30, 1);
+
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 27px;
+      letter-spacing: 0.015em;
+      text-align: left;
+
+      &:hover {
+        background-color: rgba(254, 95, 30, 1);
+      }
+    }
+  }
+}
