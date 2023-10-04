@@ -6,7 +6,11 @@ import Sort from '../components/Sort';
 import Skeleton from '../components/Skeleton';
 import Pagination from '../components/Pagination';
 
-function Home({ searchValue, setSearchValue }) {
+import { SearchContext } from '../App';
+
+function Home() {
+  const { searchValue } = React.useContext(SearchContext);
+
   const [isLoading, setIsLoading] = React.useState(true);
   const [pizzas, setPizzas] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(1);

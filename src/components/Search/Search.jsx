@@ -1,6 +1,11 @@
-import style from './Search.module.scss';
+import React from 'react';
 
-function Search({ searchValue, setSearchValue }) {
+import style from './Search.module.scss';
+import { SearchContext } from '../../App';
+
+function Search() {
+  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+
   return (
     <div className={style.container}>
       <img width={20} height={20} src="img/search.png" alt="search" />
