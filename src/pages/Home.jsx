@@ -25,7 +25,7 @@ function Home() {
     setIsLoading(true);
 
     fetch(
-      `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${currentPage}&limit=4${
+      `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${currentPage}&limit=4&${
         categoryId > 0 ? `category=${categoryId}` : ''
       }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
     )
