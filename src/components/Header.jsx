@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Search from './Search/Search';
 
 function Header() {
   return (
@@ -13,6 +14,7 @@ function Header() {
             </div>
           </div>
         </Link>
+        <Search />
         <Link to="/cart">
           <div className="cart">
             <p className="price">520 ₽</p>

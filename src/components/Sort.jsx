@@ -1,17 +1,16 @@
 import React from 'react';
 
-function Sort() {
+function Sort({ value, onChangeSort }) {
   const [isVisible, setIsVisible] = React.useState(false);
-  const [activeSort, setActiveSort] = React.useState(0);
 
-  const sortList = ['популярности', 'цене', 'алфавиту'];
+  const sortList = [
+    { name: 'популярности', sortProperty: 'rating' },
+    { name: 'цене', sortProperty: 'price' },
+    { name: 'алфавиту', sortProperty: 'title' },
+  ];
 
-  const onVisiblePopup = () => {
-    setIsVisible(!isVisible);
-  };
-
-  const onClickPopup = (index) => {
-    setActiveSort(index);
+  const onClickPopup = (item) => {
+    onChangeSort(item);
     setIsVisible(!isVisible);
   };
 
@@ -20,17 +19,20 @@ function Sort() {
       <div className="sort">
         <img width={10} height={6} src="img/triangle.svg" alt="triangle" />
         <p>Сортировка по:</p>
-        <span onClick={onVisiblePopup}>{sortList[activeSort]}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{value.name}</span>
+        {isVisible && (
+          <div className="popup">
+            {sortList.map((item, index) => (
+              <p
+                key={index}
+                onClick={() => onClickPopup(item)}
+                className={value.name === item.name ? 'active' : ''}>
+                {item.name}
+              </p>
+            ))}
+          </div>
+        )}
       </div>
-      {isVisible && (
-        <div className="popup">
-          {sortList.map((item, index) => (
-            <p onClick={() => onClickPopup(index)} className={index === activeSort ? 'active' : ''}>
-              {item}
-            </p>
-          ))}
-        </div>
-      )}
     </>
   );
 }
