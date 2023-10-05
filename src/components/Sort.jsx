@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setType } from '../redux/slices/filterSlice';
+import { setSort } from '../redux/slices/filterSlice';
 
 function Sort() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function Sort() {
 
   const onClickPopup = (item) => {
     setIsVisible(!isVisible);
-    dispatch(setType(item));
+    dispatch(setSort(item));
   };
 
   return (
