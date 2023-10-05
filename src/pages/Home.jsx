@@ -7,19 +7,24 @@ import Skeleton from '../components/Skeleton';
 import Pagination from '../components/Pagination';
 
 import { SearchContext } from '../App';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 function Home() {
+  const dispatch = useDispatch();
+  const categoryId = useSelector((state) => state.filter.categoryId);
+  const sortType = useSelector((state) => state.filter.sort);
+
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
+
   const { searchValue } = React.useContext(SearchContext);
 
   const [isLoading, setIsLoading] = React.useState(true);
   const [pizzas, setPizzas] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(1);
-
-  const [categoryId, setCategoryId] = React.useState(0);
-  const [sortType, setSortType] = React.useState({
-    name: 'популярности',
-    sortProperty: 'rating',
-  });
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -44,8 +49,8 @@ function Home() {
   return (
     <div className="wrapper">
       <div className="categories-container">
-        <Categories value={categoryId} onChangeCategory={(i) => setCategoryId(i)} />
-        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
+        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+        <Sort />
       </div>
 
       <h1>Все пиццы</h1>
