@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
@@ -33,16 +34,14 @@ function Home() {
   React.useEffect(() => {
     setIsLoading(true);
 
-    fetch(
-      `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${pageCounter}&limit=4&${
-        categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
-    )
+    axios
+      .get(
+        `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${pageCounter}&limit=4&${
+          categoryId > 0 ? `category=${categoryId}` : ''
+        }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
+      )
       .then((res) => {
-        return res.json();
-      })
-      .then((items) => {
-        setPizzas(items);
+        setPizzas(res.data);
         setIsLoading(false);
       });
   }, [categoryId, sortType, searchValue, pageCounter]);
