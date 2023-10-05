@@ -71,7 +71,7 @@ function Home() {
               })
               .map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
-      <Pagination onChangePage={(number) => onChangePage(number)} />
+      <Pagination value={pageCounter} onChangePage={(number) => onChangePage(number)} />
     </div>
   );
 }
