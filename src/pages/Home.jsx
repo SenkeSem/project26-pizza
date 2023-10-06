@@ -1,19 +1,26 @@
 import React from 'react';
 import axios from 'axios';
+import qs from 'qs';
 
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
 import Sort from '../components/Sort';
+import { sortList } from '../components/Sort';
 import Skeleton from '../components/Skeleton';
 import Pagination from '../components/Pagination';
 
 import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { setCategoryId, setPageCounter } from '../redux/slices/filterSlice';
+import { setCategoryId, setPageCounter, setFilters } from '../redux/slices/filterSlice';
 
 function Home() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false);
+
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort);
   const pageCounter = useSelector((state) => state.filter.pageCounter);
@@ -31,7 +38,7 @@ function Home() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [pizzas, setPizzas] = React.useState([]);
 
-  React.useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true);
 
     axios
@@ -44,6 +51,45 @@ function Home() {
         setPizzas(res.data);
         setIsLoading(false);
       });
+  };
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        pageCounter,
+        categoryId,
+        sortProperty: sortType.sortProperty,
+      });
+
+      navigate(`?${queryString}`);
+    }
+
+    isMounted.current = true;
+  }, [categoryId, sortType, pageCounter]);
+
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        }),
+      );
+
+      isSearch.current = true;
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+
+    isSearch.current = false;
   }, [categoryId, sortType, searchValue, pageCounter]);
 
   //Фейковый массив скелетонов, для отображения при загрузке страницы.
