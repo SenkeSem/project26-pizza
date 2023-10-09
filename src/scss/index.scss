@@ -381,6 +381,7 @@ body {
 
     .add-button img[alt="plus"] {
       margin-left: 17px;
+      margin-right: 10px;
       margin-bottom: 0;
     }
 
@@ -390,7 +391,6 @@ body {
       height: 40px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       border-radius: 30px;
       border: 1px solid rgba(235, 90, 30, 1);
 
@@ -413,6 +413,7 @@ body {
         letter-spacing: 0em;
         text-align: left;
         color: rgba(235, 90, 30, 1);
+        margin-left: 5px;
       }
 
       .orange-circle {
@@ -422,8 +423,8 @@ body {
         width: 22px;
         height: 22px;
         background-color: rgba(235, 90, 30, 1);
-        margin-right: 14px;
         border-radius: 50%;
+        margin-left: 5px;
 
         span {
           color: #FFF;

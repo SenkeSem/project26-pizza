@@ -1,14 +1,29 @@
 import React from 'react';
 
-function PizzaBlock({ title, price, imageUrl, types, sizes }) {
+import { useSelector, useDispatch } from 'react-redux';
+import { addPizza } from '../redux/slices/cartSlice';
+
+function PizzaBlock({ id, title, price, imageUrl, types, sizes }) {
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
-  const [counterPizza, setCounterPizza] = React.useState(0);
 
   const PIZZA_TYPE = ['тонкое', 'традиционное'];
 
-  const addPizza = () => {
-    setCounterPizza(counterPizza + 1);
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) => state.cart.pizzas.find((obj) => obj.id === id));
+
+  const onClickAdd = () => {
+    const pizza = {
+      id,
+      title,
+      price,
+      imageUrl,
+      PIZZA_TYPE: PIZZA_TYPE[activeType],
+      sizes: sizes[activeSize],
+    };
+
+    dispatch(addPizza(pizza));
+    console.log('Добавили пиццу в корзину!');
   };
 
   return (
@@ -37,14 +52,16 @@ function PizzaBlock({ title, price, imageUrl, types, sizes }) {
           ))}
         </ul>
       </div>
-      <div className="button">
+      <div onClick={onClickAdd} className="button">
         <h4>от {price} ₽</h4>
-        <div onClick={addPizza} className="add-button">
+        <div className="add-button">
           <img src="./img/plus.svg" alt="plus" />
           <p>Добавить</p>
-          <div className="orange-circle">
-            <span>{counterPizza}</span>
-          </div>
+          {cartItem && (
+            <div className="orange-circle">
+              <span>{cartItem.counterAdd}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

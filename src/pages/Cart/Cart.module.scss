@@ -76,6 +76,7 @@
   }
   
   .clear {
+    cursor: pointer;
     display: flex;
     align-items: center;
     width: 169px;
@@ -133,6 +134,14 @@
     width: 102px;
     height: 32px;
     margin-left: 68px;
+
+    img[alt="plus"] {
+      cursor: pointer;
+    }
+
+    img[alt="minus"] {
+      cursor: pointer;
+    }
   }
 
   h5 {

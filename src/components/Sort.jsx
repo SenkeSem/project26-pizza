@@ -24,7 +24,6 @@ function Sort() {
     const handleClickOutside = (event) => {
       if (!event.composedPath().includes(sortRef.current)) {
         setIsVisible(false);
-        console.log('click');
       }
     };
 
