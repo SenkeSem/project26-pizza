@@ -13,15 +13,31 @@ function Sort() {
   const value = useSelector((state) => state.filter.sort);
 
   const [isVisible, setIsVisible] = React.useState(false);
+  const sortRef = React.useRef();
 
   const onClickPopup = (item) => {
     setIsVisible(!isVisible);
     dispatch(setSort(item));
   };
 
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setIsVisible(false);
+        console.log('click');
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <div className="sort">
+      <div ref={sortRef} className="sort">
         <img width={10} height={6} src="img/triangle.svg" alt="triangle" />
         <p>Сортировка по:</p>
         <span onClick={() => setIsVisible(!isVisible)}>{value.name}</span>
