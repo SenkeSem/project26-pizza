@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { setCategoryId, setPageCounter, setFilters } from '../redux/slices/filterSlice';
-import { setPizza, getPizzas } from '../redux/slices/pizzaSlice';
+import { getPizzas } from '../redux/slices/pizzaSlice';
 
 function Home() {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ function Home() {
   const sortType = useSelector((state) => state.filter.sort);
   const pageCounter = useSelector((state) => state.filter.pageCounter);
   const pizzas = useSelector((state) => state.pizza.items);
+  const { status } = useSelector((state) => state.pizza);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -37,25 +38,15 @@ function Home() {
 
   const { searchValue } = React.useContext(SearchContext);
 
-  const [isLoading, setIsLoading] = React.useState(true);
-
   const fetchPizzas = async () => {
-    setIsLoading(true);
-
-    try {
-      dispatch(
-        getPizzas({
-          pageCounter,
-          categoryId,
-          sortType,
-          searchValue,
-        }),
-      );
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      alert('Ошибка при запросе пицц с сервера!!!');
-    }
+    dispatch(
+      getPizzas({
+        pageCounter,
+        categoryId,
+        sortType,
+        searchValue,
+      }),
+    );
   };
 
   React.useEffect(() => {
@@ -110,16 +101,25 @@ function Home() {
       <h1>Все пиццы</h1>
 
       <div className="pizza-list">
-        {isLoading
-          ? fakePizza
-          : pizzas
-              .filter((obj) => {
-                if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-                  return true;
-                }
-                return false;
-              })
-              .map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
+        {status === 'error' ? (
+          <div>
+            <h1>
+              О май либэн, соу сори :( !!! Но пицц сегодня не будет, может и завтра. Прости сладкая.
+            </h1>
+          </div>
+        ) : status === 'loading' ? (
+          fakePizza
+        ) : (
+          pizzas
+            .filter((obj) => {
+              if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+                return true;
+              }
+              return false;
+            })
+            .map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+        )}
+        {}
       </div>
       <Pagination value={pageCounter} onChangePage={(number) => onChangePage(number)} />
     </div>
