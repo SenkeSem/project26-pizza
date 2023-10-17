@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { setCategoryId, setPageCounter, setFilters } from '../redux/slices/filterSlice';
-import { setPizza } from '../redux/slices/pizzaSlice';
+import { setPizza, getPizzas } from '../redux/slices/pizzaSlice';
 
 function Home() {
   const navigate = useNavigate();
@@ -43,13 +43,15 @@ function Home() {
     setIsLoading(true);
 
     try {
-      const responce = await axios.get(
-        `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${pageCounter}&limit=4&${
-          categoryId > 0 ? `category=${categoryId}` : ''
-        }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
+      dispatch(
+        getPizzas({
+          pageCounter,
+          categoryId,
+          sortType,
+          searchValue,
+        }),
       );
       setIsLoading(false);
-      dispatch(setPizza(responce.data));
     } catch (error) {
       setIsLoading(false);
       alert('Ошибка при запросе пицц с сервера!!!');
