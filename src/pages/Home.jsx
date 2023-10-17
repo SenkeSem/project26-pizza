@@ -38,19 +38,17 @@ function Home() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [pizzas, setPizzas] = React.useState([]);
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
 
-    axios
-      .get(
-        `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${pageCounter}&limit=4&${
-          categoryId > 0 ? `category=${categoryId}` : ''
-        }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
-      )
-      .then((res) => {
-        setPizzas(res.data);
-        setIsLoading(false);
-      });
+    const responce = await axios.get(
+      `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${pageCounter}&limit=4&${
+        categoryId > 0 ? `category=${categoryId}` : ''
+      }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
+    );
+
+    setPizzas(responce.data);
+    setIsLoading(false);
   };
 
   React.useEffect(() => {
