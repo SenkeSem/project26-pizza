@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { setCategoryId, setPageCounter, setFilters } from '../redux/slices/filterSlice';
+import { setPizza } from '../redux/slices/pizzaSlice';
 
 function Home() {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function Home() {
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort);
   const pageCounter = useSelector((state) => state.filter.pageCounter);
+  const pizzas = useSelector((state) => state.pizza.items);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -36,19 +38,22 @@ function Home() {
   const { searchValue } = React.useContext(SearchContext);
 
   const [isLoading, setIsLoading] = React.useState(true);
-  const [pizzas, setPizzas] = React.useState([]);
 
   const fetchPizzas = async () => {
     setIsLoading(true);
 
-    const responce = await axios.get(
-      `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${pageCounter}&limit=4&${
-        categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
-    );
-
-    setPizzas(responce.data);
-    setIsLoading(false);
+    try {
+      const responce = await axios.get(
+        `https://65166a9f09e3260018c9bd8a.mockapi.io/items?page=${pageCounter}&limit=4&${
+          categoryId > 0 ? `category=${categoryId}` : ''
+        }&sortBy=${sortType.sortProperty}&search=${searchValue}`,
+      );
+      setIsLoading(false);
+      dispatch(setPizza(responce.data));
+    } catch (error) {
+      setIsLoading(false);
+      alert('Ошибка при запросе пицц с сервера!!!');
+    }
   };
 
   React.useEffect(() => {
