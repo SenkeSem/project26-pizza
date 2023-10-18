@@ -1,4 +1,7 @@
-* {
+*,
+a,
+a:active,
+a:hover {
   text-decoration: none;
   margin: 0;
   padding: 0;
@@ -291,10 +294,12 @@ body {
   height: 459px;
 
   img {
+    cursor: pointer;
     margin-bottom: 11px;
   }
 
   h3 {
+    cursor: pointer;
     font-size: 20px;
     font-weight: 800;
     line-height: 24px;
