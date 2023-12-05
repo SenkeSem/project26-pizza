@@ -1,82 +1,51 @@
 import React from 'react';
+import CartItem from '../../components/CartItem';
+import CartEmpty from './CartEmpty';
 
 import style from './Cart.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { clearCart } from '../../redux/slices/cartSlice';
 
 function Cart() {
+  const dispatch = useDispatch();
+  const pizzas = useSelector((state) => state.cart.pizzas);
+  const { totalPrice } = useSelector((state) => state.cart);
+
+  const totalCount = pizzas.reduce((sum, item) => sum + item.counterAdd, 0);
+
+  const onClickClear = () => {
+    window.confirm('Вы точно хотите очистить корзину?');
+    dispatch(clearCart());
+  };
+
+  if (!totalPrice) {
+    return <CartEmpty />;
+  }
+
   return (
     <div className="wrapper">
-      {/* <main className={style.container}>
-        <div className={style.message}>
-          <h3>Корзина пустая 😕</h3>
-          <p>
-            Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы заказать пиццу, перейди на
-            главную страницу.
-          </p>
-          <img width={300} height={255} src="img/people.png" alt="people" />
-          <Link to="/">
-            <button>Вернуться назад</button>
-          </Link>
-        </div>
-      </main> */}
-
       <div className={style.cart_header}>
         <div className={style.cart}>
           <img width={29} height={29} src="img/black-cart.svg" alt="black-cart" />
           <h3>Корзина</h3>
         </div>
-        <div className={style.clear}>
+        <div onClick={onClickClear} className={style.clear}>
           <img width={20} height={20} src="img/trash.svg" alt="trash" />
           <p>Очистить корзину</p>
         </div>
       </div>
-      <main className={style.pizza_item}>
-        <img width={80} height={80} src="img/pizza.png" alt="pizza" />
-        <div className={style.cart_title}>
-          <h4>Сырный цыпленок</h4>
-          <p>тонкое тесто, 26 см.</p>
-        </div>
-        <div className={style.minus_plus_button}>
-          <img src="img/cart-minus.svg" alt="minus" />
-          <h5>2</h5>
-          <img src="img/cart-plus.svg" alt="plus" />
-        </div>
-        <h5 className={style.cart_price}>770 ₽ </h5>
-        <img src="img/cart-remove.svg" alt="remove" />
-      </main>
-      <main className={style.pizza_item}>
-        <img width={80} height={80} src="img/pizza1.png" alt="pizza" />
-        <div className={style.cart_title}>
-          <h4>Креветки по-азиатски</h4>
-          <p>толстое тесто, 40 см.</p>
-        </div>
-        <div className={style.minus_plus_button}>
-          <img src="img/cart-minus.svg" alt="minus" />
-          <h5>1</h5>
-          <img src="img/cart-plus.svg" alt="plus" />
-        </div>
-        <h5 className={style.cart_price}>290 ₽</h5>
-        <img src="img/cart-remove.svg" alt="remove" />
-      </main>
-      <main className={style.pizza_item}>
-        <img width={80} height={80} src="img/pizza2.png" alt="pizza" />
-        <div className={style.cart_title}>
-          <h4>Чизбургер-пицца</h4>
-          <p>тонкое тесто, 30 см.</p>
-        </div>
-        <div className={style.minus_plus_button}>
-          <img src="img/cart-minus.svg" alt="minus" />
-          <h5>3</h5>
-          <img src="img/cart-plus.svg" alt="plus" />
-        </div>
-        <h5 className={style.cart_price}>350 ₽</h5>
-        <img src="img/cart-remove.svg" alt="remove" />
-      </main>
+
+      {pizzas.map((item) => (
+        <CartItem key={item.id} {...item} />
+      ))}
+
       <div className={style.count_container}>
         <h5 className={style.pizza_counter}>
-          Всего пицц: <span>3 шт.</span>
+          Всего пицц: <span>{totalCount} шт.</span>
         </h5>
         <h5 className={style.pizza_counter}>
-          Сумма заказа: <span className={style.orange}>900 ₽</span>
+          Сумма заказа: <span className={style.orange}>{totalPrice} ₽</span>
         </h5>
       </div>
       <div className={style.button_container}>
