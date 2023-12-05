@@ -1,7 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Search from './Search/Search';
 
+import { useSelector } from 'react-redux';
+
 function Header() {
+  const location = useLocation();
+
+  const { pizzas, totalPrice } = useSelector((state) => state.cart);
+
+  const totalCount = pizzas.reduce((sum, item) => sum + item.counterAdd, 0);
+
   return (
     <>
       <div className="header">
@@ -16,14 +24,16 @@ function Header() {
         </Link>
         <Search />
         <Link to="/cart">
-          <div className="cart">
-            <p className="price">520 ₽</p>
-            <img width={1} height={25} src="img/cart-line.svg" alt="cart-line" />
-            <div className="cart-block">
-              <img src="img/cart.svg" alt="cart" />
-              <p>3</p>
+          {location.pathname !== '/cart' && (
+            <div className="cart">
+              <p className="price">{totalPrice} ₽</p>
+              <img width={1} height={25} src="img/cart-line.svg" alt="cart-line" />
+              <div className="cart-block">
+                <img src="img/cart.svg" alt="cart" />
+                <p>{totalCount}</p>
+              </div>
             </div>
-          </div>
+          )}
         </Link>
       </div>
       <div className="header-line"></div>

@@ -1,22 +1,42 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../redux/slices/filterSlice';
 
-function Sort({ value, onChangeSort }) {
+export const sortList = [
+  { name: 'популярности', sortProperty: 'rating' },
+  { name: 'цене', sortProperty: 'price' },
+  { name: 'алфавиту', sortProperty: 'title' },
+];
+
+function Sort() {
+  const dispatch = useDispatch();
+  const value = useSelector((state) => state.filter.sort);
+
   const [isVisible, setIsVisible] = React.useState(false);
-
-  const sortList = [
-    { name: 'популярности', sortProperty: 'rating' },
-    { name: 'цене', sortProperty: 'price' },
-    { name: 'алфавиту', sortProperty: 'title' },
-  ];
+  const sortRef = React.useRef();
 
   const onClickPopup = (item) => {
-    onChangeSort(item);
     setIsVisible(!isVisible);
+    dispatch(setSort(item));
   };
+
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setIsVisible(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
-      <div className="sort">
+      <div ref={sortRef} className="sort">
         <img width={10} height={6} src="img/triangle.svg" alt="triangle" />
         <p>Сортировка по:</p>
         <span onClick={() => setIsVisible(!isVisible)}>{value.name}</span>
